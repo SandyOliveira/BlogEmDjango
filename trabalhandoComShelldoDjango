@@ -1,0 +1,68 @@
+Acessando shell do Django
+#python manage.py shell
+
+>>> from django.contrib.auth.models import User
+>>> from blog.models import Post
+>>> user = User.objects.get(username='admin')
+para verificar
+>>> dir (user)
+
+>>> post = Post(titulo='Nova semana testando o shell do django', slug='Nova-semana-testando-o-shell-do-django', conteudo='testando',autor=user)
+>>> post.save (salvando a publicação para persistir no BD)
+
+Recuperando e atualizando dados
+
+>>> post.titulo (acessando)
+alterando
+>>> post.titulo = 'alterando titulo criado anteriormente'
+>>>post.save
+>>> acesso_post = Post.objects.get(titulo='pegue um dos titulos já criado')
+>>> acesso_post = 'Meu novo titulo'
+>>>  acesso_post.save
+
+#a flexibilidade do save é que se pode verificar antes de salvar
+
+Criar sem ficar dando save
+ post = Post.objects.create(titulo='Nova semana testando o shell do django', slug='Nova-semana-testando-o-shell-do-django', conteudo='testando',autor=user)
+
+Usando Filter() & exlude()
+>>> Post.objects.filter(publicado_year=2019)
+>>> Post.objects.filter(publicado_year=2019, autor__username='admin')
+>>> Post.objects.filter(publicado_year=2019).exclude(titulo__startswith='Titulo2')
+
+Order by & delete()
+
+ordenando com menos o publicado recente
+
+>>> Post.objects.order_by('-publicado')
+
+>>> post =Post.objects.get(pk=1)
+>>> post
+>>>post.delete()
+
+Manage e Querysets
+
+objects é o manage = gerenciador padrão do modelo(alterar,deletar...)
+
+>>> type (Post.objects)
+Usando o Bulk criar varios de uma vez só
+
+>>> Post.objects.bulk_create([
+        Post(titulo='Criando com bulk no shell do django 1', slug='Criando-com-bulk-no-shell-do-django1', conteudo='testando',autor=user),
+        Post(titulo='Criando com bulk no shell do django 2', slug='Criando-com-bulk-no-shell-do-django2', conteudo='testando',autor=user),
+        Post(titulo='Criando com bulk no shell do django 3', slug='Criando-com-bulk-no-shell-do-django3', conteudo='testando',autor=user),
+
+        ])
+
+queryset
+>>> Post.objects.all () [0]
+
+>>>Post.objects.get(slug__iexact='titulo2')
+>>>Post.objects.filter(slug__istartswith='Te')
+>>>Post.objects.filter(slug__contains='Te')
+
+
+Manege customizado
+
+depois de fazer edições no codigo (models) faz
+>>> Post.published.all()
