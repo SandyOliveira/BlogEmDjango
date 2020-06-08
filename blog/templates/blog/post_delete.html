@@ -3,9 +3,12 @@
 {% block content %}
 
 <h1> Excluir Postagem </h1>
-<form action="" method="post">{% csrf_token %}
-<p> Você tem certeza que quer excluir a postagem "{{post.title}}"?</p>
-    <input type="submit" value="Excluir">
+
+<form action="" method="post">
+    {% csrf_token %}
+    <br>
+     <p> Você tem certeza que quer excluir a postagem "{{post.title}}"?</p>
+    <input type="submit" value="Confirmar" class="btn btn-danger">
 
 </form>
 

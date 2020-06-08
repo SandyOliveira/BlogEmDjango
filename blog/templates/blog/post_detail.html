@@ -1,5 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %} Blog - Detalhe {% endblock title %}
+{% block header %}
+
+  <!-- Page Header -->
+{% if object.image %}
+  <header class="masthead" style="background-image: url({{ object.imagem.url }})">
+{% else %}
+  <header class="masthead" style="background-image: url({% static 'img/tec.jpg' %})">
+{% endif %}
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>{{ object.title }}</h1>
+          <!--<span class="subheading">Blog desenvolvido com Django</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+{% endblock header %}
 {% block content %}
         {% if messages %}
         <ul class="messages">
@@ -10,8 +33,20 @@
         {% endif %}
         <div class="post-entry">
             <h2>{{ object.title }}</h2>
-            <p>{{ object.conteudo }} </p>
+            <p>{{ object.conteudo | safe }} </p>
         </div>
-        <a href="{{ object.get_absolute_url_update }}">+ Editar Postagem do Blog </a><br>
-        <a href="{% url 'post_delete' object.pk %}"> Deletar Postagem do Blog </a>
+
+        {% if request.user.is_authenticated %}
+
+        <div class="card">
+
+            <div class="card-body">
+                <a href="{{ object.get_absolute_url_update }}" class="btn btn-primary">+ Editar Postagem do Blog </a>
+                <a href="{% url 'post_delete' object.pk %}" class="btn btn-danger"> Deletar Postagem do Blog </a>
+            </div>
+        </div>
+        {% endif %}
+
+
+
 {% endblock content %}

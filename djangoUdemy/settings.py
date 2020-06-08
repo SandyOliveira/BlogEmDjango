@@ -38,7 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "blog",
+    'bootstrapform',
+    'ckeditor',
+    'blog',
+    'accounts',
+    'social',
+    'contact',
 ]
 
 MIDDLEWARE = [
@@ -64,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.processors.ctx_social',
             ],
         },
     },
@@ -114,6 +120,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+LOGIN_REDIRECT_URL= 'home'
+LOGOUT_REDIRECT_URL= 'home'
 
 
 # Static files (CSS, JavaScript, Images)
