@@ -137,3 +137,12 @@ STATICFILES_DIRS = [
 ]
 
 STATIC_URL = '/static/'
+
+#testando envio de emails
+#criar uma conta em https://mailtrap.io
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = '461347393b7cc0'
+EMAIL_HOST_PASSWORD = '4464366cb49fe2'
+EMAIL_PORT = '2525'
+
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
